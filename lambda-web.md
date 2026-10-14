@@ -4,8 +4,6 @@
 
 This page walks through what changed, how it helps, the pros and the caveats, where it's likely headed, and what it means for how we design serverless systems. The facts come from the official AWS announcements; the design commentary is my own.
 
----
-
 ## 1. What's new (the headline)
 
 Two launches landed together on **Oct 12, 2026**:
@@ -22,8 +20,6 @@ Two launches landed together on **Oct 12, 2026**:
 3. **A naming change.** Existing Lambda functions are now called **Lambda Event Functions**. This is **a rename only** — no code changes, no redeployments required.
 
 > **Note on runtime support at launch:** Lambda Web Functions supports the **Node.js** runtime initially. Available at launch in **US East (N. Virginia), US East (Ohio), US West (Oregon), Asia Pacific (Tokyo), and Europe (Ireland)**.
-
----
 
 ## 2. The architecture — how it fits together
 
@@ -63,8 +59,6 @@ flowchart LR
 
 **Read it left to right:** a user hits the nearest **CloudFront edge** → TLS terminates and cacheable content is served at the edge → **OAC** guarantees the request can only reach your origin through CloudFront → **multi-Region routing** sends dynamic requests to the closest Region → your **Web Function** (a normal port-listening app) handles up to ~128 concurrent requests in a warm environment, with **VPC access** and **HTTP streaming** available.
 
----
-
 ## 3. Before vs. after
 
 ```mermaid
@@ -90,8 +84,6 @@ flowchart TB
     class N1,N2,N3,N4 new;
 ```
 
----
-
 ## 4. How it will help
 
 ### For developers
@@ -107,8 +99,6 @@ flowchart TB
 ### For the business / FinOps
 - **Pay for work, not waiting.** **Active-CPU billing** means I/O-bound apps (lots of DB/API waits) stop paying for idle compute — a direct cost cut for typical web workloads.
 - **Enterprise security with no app changes.** CloudFront **OAC + WAF + edge DDoS** protection wraps the function without touching code.
-
----
 
 ## 5. Pros (and the honest caveats)
 
@@ -130,8 +120,6 @@ flowchart TB
 - ⚠️ **New primitive = new operational patterns:** metrics, autoscaling behavior, and per-request isolation differ from Event Functions; validate observability and tuning.
 - ⚠️ **CloudFront China region** is excluded from the origin feature.
 
----
-
 ## 6. Roadmap — the likely trajectory
 
 > AWS hasn't published a formal roadmap for everything below. The launch state is fact; the forward-looking items are my own expectation of where this goes, not a commitment from AWS.
@@ -150,8 +138,6 @@ timeline
 - **Region expansion** toward parity with Event Functions.
 - **Tooling depth** — SAM/CDK/CloudFormation patterns, Agent Toolkit for AWS workflows, and framework-specific starters.
 - **Concurrency & tuning knobs** — expect more control over per-environment concurrency and scaling.
-
----
 
 ## 7. The architect's vision — why this is a "big shift"
 
@@ -178,8 +164,6 @@ This is more than a feature. It closes a gap that forced a trade-off for years, 
 | Request/response web app, API, SSR, AI inference, webhook | **Lambda Web Functions** |
 | Event-driven (S3/SQS/EventBridge triggers), stream/batch processing, async fan-out | **Lambda Event Functions** (the classic model) |
 | Global, user-facing, security-sensitive | **Web Functions + CloudFront (OAC + WAF)** |
-
----
 
 ## Sources & references
 
