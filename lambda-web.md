@@ -2,7 +2,7 @@
 
 > **In one sentence:** On **October 12, 2026**, AWS launched **Lambda Web Functions** — a new serverless primitive where your code handles **HTTP requests directly** (no adapters, no event-handler rewrites) — and made **Amazon CloudFront** support it natively as an origin. In the same move, the classic Lambda you know is renamed **Lambda Event Functions**.
 
-This page covers **what's new**, **how it helps**, the **pros**, the **roadmap**, and an **architect's vision** for what this change means for serverless design. It's grounded in the official AWS announcements and an architect's field take.
+This page walks through what changed, how it helps, the pros and the caveats, where it's likely headed, and what it means for how we design serverless systems. The facts come from the official AWS announcements; the design commentary is my own.
 
 ---
 
@@ -134,7 +134,7 @@ flowchart TB
 
 ## 6. Roadmap — the likely trajectory
 
-> AWS has not published a formal public roadmap for every item below. The following reflects the **launch state** plus a **reasoned architect's read** of where this is heading. Treat forward-looking items as expectation, not commitment.
+> AWS hasn't published a formal roadmap for everything below. The launch state is fact; the forward-looking items are my own expectation of where this goes, not a commitment from AWS.
 
 ```mermaid
 timeline
@@ -155,7 +155,7 @@ timeline
 
 ## 7. The architect's vision — why this is a "big shift"
 
-The field take from the architecture community (see the referenced article) frames this as more than a feature — it's a **convergence of two worlds that used to force a trade-off**:
+This is more than a feature. It closes a gap that forced a trade-off for years, bringing together two worlds that used to pull in opposite directions:
 
 - **The developer-velocity world** of standard HTTP frameworks (run anything, locally and in prod, unchanged).
 - **The serverless-economics world** of zero-idle scaling and operational simplicity (no servers, pay-per-use).
@@ -186,6 +186,6 @@ The field take from the architecture community (see the referenced article) fram
 - [AWS — Lambda announces Lambda Web Functions (What's New, Oct 2026)](https://aws.amazon.com/about-aws/whats-new/2026/10/aws-lambda-web-functions/)
 - [AWS News Blog — Announcing AWS Lambda Web Functions](https://aws.amazon.com/blogs/aws/announcing-aws-lambda-web-functions-for-fast-consistent-web-app-performance-anywhere/)
 - [AWS — CloudFront now supports Lambda Web Functions as an origin (What's New, Oct 2026)](https://aws.amazon.com/about-aws/whats-new/2026/10/cloudfront-lambda-web-functions-origin/)
-- Architect's field take: *"Big shift for serverless architecture: AWS Lambda Web Functions & CloudFront Integration are officially here!"* by Toe San (LinkedIn, Oct 13, 2026)
+- Toe San, *"Big shift for serverless architecture: AWS Lambda Web Functions & CloudFront Integration are officially here!"* (LinkedIn, Oct 13, 2026) — for the architect's framing of why this matters.
 
-*Content is paraphrased and summarized from the official AWS announcements and the referenced article. This is a newly launched capability — verify current runtimes, Regions, concurrency limits, and pricing against the official AWS docs before adopting. Content was rephrased for compliance with licensing restrictions.*
+This is a brand-new capability, so double-check the current runtimes, Regions, concurrency limits, and pricing in the AWS docs before you build on it — the specifics will move.
